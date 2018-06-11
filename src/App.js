@@ -1,3 +1,5 @@
+// React 개발시 Component Tree를 그려보고 개발하도록 하자
+
 // 불러와서 모듈처럼 사용할 수 있는 것 (import)
 import React, { Component } from "react";
 import TodoList from "./components/TodoList";
