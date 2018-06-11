@@ -116,11 +116,12 @@ class App extends Component {
     return (
       <div>
         {page === "login" ? (
-          <div>
+          <React.Fragment>
+            {/* React.Fragment는 아무 의미가 없는 JSX엘리먼트로 여러개의 JSX 엘리먼트를 감싸줄 때 사용한다 - 의미론적으로 더 좋을 수 있다. */}
             <button onClick={this.goToTodoPage}>로그인</button>
-          </div>
+          </React.Fragment>
         ) : (
-          <div>
+          <React.Fragment>
             <h1>할 일 목록</h1>
             <label>
               새 할일
@@ -141,7 +142,7 @@ class App extends Component {
                 handleTodoItemDelete={this.handleTodoItemDelete}
               />
             )}
-          </div>
+          </React.Fragment>
         )}
       </div>
     );
