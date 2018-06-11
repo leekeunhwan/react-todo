@@ -1,26 +1,46 @@
 // 불러와서 모듈처럼 사용할 수 있는 것 (import)
 import React, { Component } from "react";
 import TodoList from "./components/TodoList";
+import axios from "axios";
 import "./App.css";
 
-let count = 0;
+let count = 1;
+
+const todoAPI = axios.create({
+  baseURL: "https://mountainous-keyboard.glitch.me"
+});
 
 class App extends Component {
   state = {
+    loading: false,
     todos: [
-      {
-        id: count++,
-        body: "React 공부",
-        complete: true
-      },
-      {
-        id: count++,
-        body: "Redux 공부",
-        complete: false
-      }
+      // {
+      //   id: count++,
+      //   body: "React 공부",
+      //   complete: true
+      // },
+      // {
+      //   id: count++,
+      //   body: "Redux 공부",
+      //   complete: false
+      // }
     ],
     newTodoBody: ""
   };
+
+  // 렌더링은 항상 동기식이여야 한다.
+  // 하지만 데이터를 불러오는 것은 비동기식이다.
+
+  async componentDidMount() {
+    this.setState({
+      loading: true
+    });
+    const res = await todoAPI.get("/todos");
+    this.setState({
+      todos: res.data,
+      loading: false
+    });
+  }
 
   // 이벤트 리스너 앞에 handle을 붙이는 것이 관례!
   handleInputChange = e => {
@@ -63,7 +83,7 @@ class App extends Component {
   };
 
   render() {
-    const { todos, newTodoBody } = this.state;
+    const { todos, newTodoBody, loading } = this.state;
     return (
       <div>
         <h1>할 일 목록</h1>
@@ -76,11 +96,15 @@ class App extends Component {
           />
           <button onClick={this.handleButtonClick}>추가</button>
         </label>
-        <TodoList
-          todos={todos}
-          handleTodoItemComplete={this.handleTodoItemComplete}
-          handleTodoItemDelete={this.handleTodoItemDelete}
-        />
+        {loading ? (
+          <div>loading...</div>
+        ) : (
+          <TodoList
+            todos={todos}
+            handleTodoItemComplete={this.handleTodoItemComplete}
+            handleTodoItemDelete={this.handleTodoItemDelete}
+          />
+        )}
       </div>
     );
   }
