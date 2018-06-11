@@ -1,5 +1,6 @@
 // 불러와서 모듈처럼 사용할 수 있는 것 (import)
 import React, { Component } from "react";
+import TodoList from "./components/TodoList";
 import "./App.css";
 
 let count = 0;
@@ -75,47 +76,12 @@ class App extends Component {
           />
           <button onClick={this.handleButtonClick}>추가</button>
         </label>
-        <ul>
-          {todos.map(todo => (
-            <TodoItem
-              key={todo.id}
-              {...todo}
-              onComplete={this.handleTodoItemComplete}
-              onDelete={this.handleTodoItemDelete}
-            />
-          ))}
-        </ul>
+        <TodoList
+          todos={todos}
+          handleTodoItemComplete={this.handleTodoItemComplete}
+          handleTodoItemDelete={this.handleTodoItemDelete}
+        />
       </div>
-    );
-  }
-}
-
-class TodoItem extends Component {
-  render() {
-    const { id, body, complete, onComplete, onDelete } = this.props;
-    return (
-      <li className={complete ? "complete" : ""} key={id}>
-        {body}
-        <button
-          onClick={e => {
-            onComplete(id);
-          }}
-        >
-          완료
-        </button>
-        <button
-          onClick={e => {
-            // this.setState({
-            //   // 삭제 기능은 이렇게 구현할 수 있다.
-            //   // 같은 아이디 (클릭한 대상)은 제외한 것만 반환하는 식으로
-            //   todos: todos.filter(t => id !== t.id)
-            // });
-            onDelete(id);
-          }}
-        >
-          삭제
-        </button>
-      </li>
     );
   }
 }
