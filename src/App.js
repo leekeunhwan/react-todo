@@ -5,7 +5,7 @@ import axios from "axios";
 import "./App.css";
 
 const todoAPI = axios.create({
-  baseURL: "https://mountainous-keyboard.glitch.me"
+  baseURL: process.env.REACT_APP_API_URL
 });
 
 class App extends Component {
