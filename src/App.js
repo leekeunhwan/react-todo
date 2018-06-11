@@ -5,6 +5,7 @@ import axios from "axios";
 import "./App.css";
 
 const todoAPI = axios.create({
+  // React에서 환경변수 설정할 때는 평소와 다르게 REACT_APP_이라는 수식어를 붙여줘야 한다.
   baseURL: process.env.REACT_APP_API_URL
 });
 
@@ -66,6 +67,22 @@ class App extends Component {
     }
   };
 
+  // 여기서 포인트
+  // 역할과 책임 - 상태는 상태만 생각하고 UI단에서 변경사항은 UI단에서 해결하는 것
+  handleTodoItemBodyUpdate = async (id, body) => {
+    // const newBody = prompt('please enter value...')
+    this.setState({
+      loading: true
+    });
+    await todoAPI.patch(`/todos/${id}`, {
+      body: body,
+      // body: newbody 라고 해도 동작은 할 것이다.
+      // 하지만 그럼에도 하지 않은 이유는 역할과 책임이다.
+      complete: false
+    });
+    await this.fetchTodos();
+  };
+
   handleTodoItemComplete = async id => {
     this.setState({
       loading: true
@@ -103,6 +120,7 @@ class App extends Component {
         ) : (
           <TodoList
             todos={todos}
+            handleTodoItemBodyUpdate={this.handleTodoItemBodyUpdate}
             handleTodoItemComplete={this.handleTodoItemComplete}
             handleTodoItemDelete={this.handleTodoItemDelete}
           />
