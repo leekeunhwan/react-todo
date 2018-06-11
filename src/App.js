@@ -13,7 +13,6 @@ const todoAPI = axios.create({
 
 class App extends Component {
   state = {
-    page: "login",
     loading: false,
     todos: [
       // {
@@ -28,12 +27,6 @@ class App extends Component {
       // }
     ],
     newTodoBody: ""
-  };
-
-  goToTodoPage = () => {
-    this.setState({
-      page: "todo"
-    });
   };
 
   // 렌더링은 항상 동기식이여야 한다.
@@ -110,39 +103,29 @@ class App extends Component {
     await this.fetchTodos();
   };
 
-  // JSX는 한 엘리먼트만 인식가능하다 -> 2개 이상의 JSX 엘리먼트를 렌더링하려고 할 때 span이나 div로 꼭 둘러싸줘야한다.
   render() {
-    const { todos, newTodoBody, loading, page } = this.state;
+    const { todos, newTodoBody, loading } = this.state;
     return (
       <div>
-        {page === "login" ? (
-          <React.Fragment>
-            {/* React.Fragment는 아무 의미가 없는 JSX엘리먼트로 여러개의 JSX 엘리먼트를 감싸줄 때 사용한다 - 의미론적으로 더 좋을 수 있다. */}
-            <button onClick={this.goToTodoPage}>로그인</button>
-          </React.Fragment>
+        <h1>할 일 목록</h1>
+        <label>
+          새 할일
+          <input
+            type="text"
+            value={newTodoBody}
+            onChange={this.handleInputChange}
+          />
+          <button onClick={this.handleButtonClick}>추가</button>
+        </label>
+        {loading ? (
+          <div>loading...</div>
         ) : (
-          <React.Fragment>
-            <h1>할 일 목록</h1>
-            <label>
-              새 할일
-              <input
-                type="text"
-                value={newTodoBody}
-                onChange={this.handleInputChange}
-              />
-              <button onClick={this.handleButtonClick}>추가</button>
-            </label>
-            {loading ? (
-              <div>loading...</div>
-            ) : (
-              <TodoList
-                todos={todos}
-                handleTodoItemBodyUpdate={this.handleTodoItemBodyUpdate}
-                handleTodoItemComplete={this.handleTodoItemComplete}
-                handleTodoItemDelete={this.handleTodoItemDelete}
-              />
-            )}
-          </React.Fragment>
+          <TodoList
+            todos={todos}
+            handleTodoItemBodyUpdate={this.handleTodoItemBodyUpdate}
+            handleTodoItemComplete={this.handleTodoItemComplete}
+            handleTodoItemDelete={this.handleTodoItemDelete}
+          />
         )}
       </div>
     );
