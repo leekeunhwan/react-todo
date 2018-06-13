@@ -1,10 +1,13 @@
 import React, { Component } from "react";
 
 import LoginForm from "../components/LoginForm";
-
+import { UserConsumer } from "../contexts/UserContext";
 export default class LoginPage extends Component {
   render() {
-    const { onLogin } = this.props;
-    return <LoginForm onLogin={onLogin} />;
+    return (
+      <UserConsumer>
+        {value => <LoginForm onLogin={value.login} />}
+      </UserConsumer>
+    );
   }
 }

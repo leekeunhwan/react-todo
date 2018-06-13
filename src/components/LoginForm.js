@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import todoAPI from "../todoAPI";
 
 export default class LoginForm extends Component {
   state = { username: "", password: "" };
@@ -13,17 +12,8 @@ export default class LoginForm extends Component {
   };
 
   handleLoginClick = async e => {
-    // 로그인 요청
-    const res = await todoAPI.post(`users/login`, {
-      username: this.state.username,
-      password: this.state.password
-    });
-
-    // localstorage에 토큰 저장
-    localStorage.setItem("token", res.data.token);
-
-    // 페이지 전환
-    this.props.onLogin();
+    const { onLogin } = this.props;
+    onLogin(this.state.username, this.state.password);
   };
 
   render() {
