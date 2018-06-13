@@ -2,16 +2,11 @@
 
 // 불러와서 모듈처럼 사용할 수 있는 것 (import)
 import React, { Component } from "react";
-import axios from "axios";
 
 import "../App.css";
 import TodoList from "../components/TodoList";
 import TodoForm from "../components/TodoForm";
-
-const todoAPI = axios.create({
-  // React에서 환경변수 설정할 때는 평소와 다르게 REACT_APP_이라는 수식어를 붙여줘야 한다.
-  baseURL: process.env.REACT_APP_API_URL
-});
+import todoAPI from "../todoAPI";
 
 class TodoPage extends Component {
   state = {
