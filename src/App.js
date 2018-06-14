@@ -12,7 +12,7 @@ class App extends React.Component {
         <PageConsumer>
           {value => (
             <UserProvider onLogin={value.login}>
-              {value.page === "requireLogin" ? <LoginPage /> : <TodoPage />}
+              {value.page === "requireLogin" ?  <LoginPage /> : <TodoPage />}
             </UserProvider>
           )}
         </PageConsumer>
