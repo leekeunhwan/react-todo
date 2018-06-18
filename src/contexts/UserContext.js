@@ -16,7 +16,7 @@ class UserProvider extends Component {
       localStorage.setItem("token", res.data.token);
 
       // 페이지 전환
-      this.props.onLogin();
+      // this.props.onLogin();
     } catch (e) {
       if (e.response) {
         if (e.response.status === 400) {

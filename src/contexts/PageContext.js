@@ -7,7 +7,7 @@ class PageProvider extends React.Component {
     page: "requireLogin"
   };
 
-  login = () => {
+  goToLogin = () => {
     this.setState({
       page: "Authorized"
     });
@@ -16,7 +16,7 @@ class PageProvider extends React.Component {
   render() {
     const value = {
       page: this.state.page,
-      login: this.login
+      goToLogin: this.goToLogin
     };
     return <Provider value={value}>{this.props.children}</Provider>;
   }
