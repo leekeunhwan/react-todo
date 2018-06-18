@@ -22,6 +22,9 @@ class UserProvider extends Component {
     const value = {
       login: this.login
     };
+    // Provider의 value prop에 value 값을 내려주면 Consumer에서 쓸 수 있다.
+    // Context API를 이용하면 props의 패스가 없이 하위 Component에게 값을 내려줄 수 있다.
+    // children은 다른 내용을 포함하는 Component를 만들때 사용할 수 있다.
     return <Provider value={value}>{this.props.children}</Provider>;
   }
 }
