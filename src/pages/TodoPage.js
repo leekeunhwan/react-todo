@@ -6,6 +6,7 @@ import React, { Component } from "react";
 import "../App.css";
 import TodoContainer from "../containers/TodoContainer";
 import { TodoProvider } from "../contexts/TodoContext";
+import LogoutButtonContainer from "../containers/LogoutButtonContainer";
 
 class TodoPage extends Component {
   render() {
@@ -13,7 +14,10 @@ class TodoPage extends Component {
     // Consumer 바로 위가 아닌 상위에서 감싸주기만 하면 되므로 깔끔하게 관리가 잘될 만한 곳에서 감싸주도록 하는게 좋습니다.
     return (
       <TodoProvider>
-        <TodoContainer />
+        <React.Fragment>
+          <TodoContainer />
+          <LogoutButtonContainer />
+        </React.Fragment>
       </TodoProvider>
     );
   }

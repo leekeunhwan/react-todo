@@ -13,10 +13,15 @@ class PageProvider extends React.Component {
     });
   };
 
+  goToLoginPage = () => {
+    this.setState({ page: "requireLogin" });
+  };
+
   render() {
     const value = {
       page: this.state.page,
-      goToLogin: this.goToLogin
+      goToLogin: this.goToLogin,
+      goToLoginPage: this.goToLoginPage
     };
     return <Provider value={value}>{this.props.children}</Provider>;
   }
