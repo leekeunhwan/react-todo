@@ -2,44 +2,30 @@ import React, { Component } from "react";
 
 import LoginForm from "../components/LoginForm";
 import { UserConsumer } from "../contexts/UserContext";
-import { PageConsumer } from "../contexts/PageContext";
-import OnMount from "../components/OnMount";
+import { Redirect } from "react-router-dom";
+
 export default class LoginFormContainer extends Component {
+  state = {
+    success: false
+  };
   render() {
-    return (
-      <UserConsumer>
-        {({ login }) => (
-          <PageConsumer>
-            {({ goToLogin }) => (
-              <React.Fragment>
-                <LoginForm
-                  onLogin={async (username, password) => {
-                    await login(username, password);
-                    goToLogin();
-                  }}
-                />
-                {localStorage.getItem("token") && (
-                  <OnMount onMount={goToLogin} />
-                )}
-              </React.Fragment>
-            )}
-          </PageConsumer>
-        )}
-      </UserConsumer>
-    );
-    /* 
-      분해대입 패턴 
-
-      function add({x, y}) {
-         return x + y
-      }
-      add({x: 2, y: 3})
-
-      function TodoItem ({body}) {
-        return (
-          <li>{body}</li>
-        )
-      }
-      */
+    if (this.state.success) {
+      return <Redirect to="todo" />;
+    } else {
+      return (
+        <UserConsumer>
+          {({ login }) => (
+            <LoginForm
+              onLogin={async (username, password) => {
+                await login(username, password);
+                this.setState({
+                  success: true
+                });
+              }}
+            />
+          )}
+        </UserConsumer>
+      );
+    }
   }
 }
