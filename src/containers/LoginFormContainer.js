@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import LoginForm from "../components/LoginForm";
 import { UserConsumer } from "../contexts/UserContext";
 import { PageConsumer } from "../contexts/PageContext";
+import OnMount from "../components/OnMount";
 export default class LoginFormContainer extends Component {
   render() {
     return (
@@ -10,12 +11,17 @@ export default class LoginFormContainer extends Component {
         {({ login }) => (
           <PageConsumer>
             {({ goToLogin }) => (
-              <LoginForm
-                onLogin={async (username, password) => {
-                  await login(username, password);
-                  goToLogin();
-                }}
-              />
+              <React.Fragment>
+                <LoginForm
+                  onLogin={async (username, password) => {
+                    await login(username, password);
+                    goToLogin();
+                  }}
+                />
+                {localStorage.getItem("token") && (
+                  <OnMount onMount={goToLogin} />
+                )}
+              </React.Fragment>
             )}
           </PageConsumer>
         )}
