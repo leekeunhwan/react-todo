@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
 
 import "../App.css";
 import TodoList from "../components/TodoList";
@@ -8,7 +7,7 @@ import { TodoConsumer } from "../contexts/TodoContext";
 
 export default class TodoContainer extends Component {
   render() {
-    return localStorage.getItem("token") ? (
+    return (
       <TodoConsumer>
         {/* Counsumer는 Provider가 있어야 효과를 볼 수 있다 - 만드는 것만으로는 아무런 효과가 나타나지 않는다.*/}
         {({
@@ -21,7 +20,6 @@ export default class TodoContainer extends Component {
         }) => (
           <div>
             <h1>할 일 목록</h1>
-
             <TodoForm
               handleButtonClick={this.handleButtonClick}
               onCreate={createTodo}
@@ -39,8 +37,6 @@ export default class TodoContainer extends Component {
           </div>
         )}
       </TodoConsumer>
-    ) : (
-      <Redirect to="login" />
     );
   }
 }
