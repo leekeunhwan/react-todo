@@ -1,0 +1,11 @@
+$primary: powderblue;
+@import '../node_modules/bulma/bulma.sass';
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif
+}
+
+.complete {
+  color: pink;
+}
