@@ -11,6 +11,11 @@ import LogoutButtonContainer from "../containers/LogoutButtonContainer";
 import withAuth from "./../hocs/withAuth";
 
 class TodoPage extends Component {
+  // static class field를 이용하여 defaultProps를 사용하여 기본 값을 줄 수 있습니다.
+  static defaultProps = {
+    title: "My Todos"
+  };
+
   render() {
     // Consumer위에 Provider로 감싸줘야 데이터 전달이 되는 것은 기본적으로 알고 있을 것입니다.
     // Consumer 바로 위가 아닌 상위에서 감싸주기만 하면 되므로 깔끔하게 관리가 잘될 만한 곳에서 감싸주도록 하는게 좋습니다.
@@ -24,6 +29,11 @@ class TodoPage extends Component {
   }
 }
 
+// 이렇게 defaultProps를 이용할 수도 있습니다.
+// TodoPage.defaultProps = {
+//   title: "My Title"
+// };
+
 // 다른 곳에서 불러와서 사용할 수 있도록 해주는 것이다. (export)
 // withAuth같은 것들은 가급적 최종프로젝트에서 Page에 적용시켜주는 것으로!!
-export default withAuth(TodoPage);
+export default withAuth("/login")(TodoPage);
